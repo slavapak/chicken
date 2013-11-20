@@ -2,8 +2,14 @@
 
 A tiny toy command line twitter.
 
-It is both a solution for test task in one company and a Clojure demo.
+At first I implemnted it in clojure, and later created it's port to Scala.
+Scala implementation can be found in src/main/scala. 
 
+In spite of Scala and Clojure are hosted in on project, they are built independently
+because their sources are in separate dirs, and projects are built by independent tools
+(sbt and lein subsequently).
+
+As for the Cljoure version:
 Provided solution might be overcomplicated for small demo,
  because I strived to provide production ready code which I would accept as
 a code reviewer in a real project, so in addition to
@@ -19,11 +25,6 @@ to attach tcp interface to it to be able to work over telnet,
 whatsoever...)
 
 3) It is covered with tests.
-
-After implementing chicken in Clojure I realized that it might be mind blowing 
-for people who have no previous experience with this language. 
-So tomorrow I'll supply implemenation in Scala which will be much more traditional 
-to Object-Oriented approach but will do all the same logic for commands parsing and so on.
 
 To run it you need to have jvm installed.
 Clone the project with git clone,
