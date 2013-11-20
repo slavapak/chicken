@@ -6,7 +6,7 @@
 
 (defn validate [input]
   (if (not (.endsWith (.trim input) TOKEN))
-    {:errors '("Invalid 'wall' format. Type 'Username wall'")} 
+    {:errors '("Invalid 'wall' format. Type 'Username wall'")}
     :ok))
 
 (defn wall [input]

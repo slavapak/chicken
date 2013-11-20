@@ -10,9 +10,7 @@
   (swap! posts conj post))
 
 (defn existsUser? [name]
-  (if (some #(= % name) (keys @users))
-    true
-    false))
+  (some #(= % name) (keys @users)))
 
 (defmacro sort-by-time-desc [seq]
   `(sort-by :timestamp #(compare %2 %1) ~seq))
@@ -34,5 +32,5 @@
 (defn follow [username followedName]
   "Adds followedName to :followed set of username"
   (swap! users update-in [username :followed]
-            merge followedName))
+    merge followedName))
 

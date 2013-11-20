@@ -29,19 +29,19 @@
   (not (existsUser? "Bob")))
 
 (deftest test-sort-by-time-desc
-  (is 
-    (= 
-      (sort-by-time-desc '({:timestamp 1} {:timestamp 2})) 
+  (is
+    (=
+      (sort-by-time-desc '({:timestamp 1} {:timestamp 2}))
       '({:timestamp 2} {:timestamp 1}))))
 
 (deftest testGetTimeline
   (reset! posts (list (Post. "first" "Alice" 1)
-                      (Post. "second" "Bob" 2)
-                      (Post. "third" "Alice" 3)))
+                  (Post. "second" "Bob" 2)
+                  (Post. "third" "Alice" 3)))
   (let [timeline (getTimeline "Alice")]
     (testing "returns post by username only"
       (is (= timeline
-             (list (Post. "third" "Alice" 3) (Post. "first" "Alice" 1)))))
+            (list (Post. "third" "Alice" 3) (Post. "first" "Alice" 1)))))
     (testing "returns all posts by username"
       (is (= 2 (count timeline))))
     (testing "returns them sorted by time in desc order"
@@ -49,13 +49,13 @@
 
 (deftest testGetWall
   (reset! users {"Alice" (User. "Alice" #{"Bob"})
-                          "Bob" (User. "Bob" #{})
-                          "Charlie " (User. "Alice" #{})})
+                 "Bob" (User. "Bob" #{})
+                 "Charlie " (User. "Alice" #{})})
   (reset! posts (list (Post. "first" "Alice" 1)
-                           (Post. "second" "Bob" 2)
-                           (Post. "not in result set" "Charlie" 5)
-                           (Post. "third" "Alice" 3)
-                           (Post. "fourth" "Bob" 4)))
+                  (Post. "second" "Bob" 2)
+                  (Post. "not in result set" "Charlie" 5)
+                  (Post. "third" "Alice" 3)
+                  (Post. "fourth" "Bob" 4)))
   (let [wall (getWall "Alice")]
     (testing "returns posts only by username and users it follows"
       (is (= #{"Alice" "Bob"} (reduce #(merge %1 (:author %2)) #{} wall))))
@@ -63,8 +63,8 @@
       (is (= 4 (count wall))))
     (testing "return posts sorted by time in descending order"
       (let [timestamps (map :timestamp wall)]
-        (is (every? #(> (first %) (second %)) 
-                    (map vector timestamps (rest timestamps))))))))
+        (is (every? #(> (first %) (second %))
+              (map vector timestamps (rest timestamps))))))))
 
 (deftest testFollow
   (reset! users {"Alice" (User. "Alice" #{})})

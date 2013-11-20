@@ -18,9 +18,10 @@
       (dispatch input)
       (recur (prompt)))))
 
-;This was not a part of task but this was so interesting that I implemented loading commands (read, follow, post) from classpath.
-;This gives you the advantage is that to create new command (like, ignore, etc) you only need to implement it in single file
-;and do not need to change app.clj file
+;This was not a part of task but this was so interesting that I implemented loading commands (read, follow, post) from
+; classpath.
+;This gives you the advantage is that to create new command (like, ignore, etc) you only need to implement it in single
+; file and do not need to change app.clj file
 (defn registerCommands []
   "Load commands from chicken.cli.commands"
   (->> (re-pattern (System/getProperty "path.separator"))
@@ -33,8 +34,8 @@
     (doall)))
 
 (defn- prompt []
-    (.print System/out "> ")
-    (read-line))
+  (.print System/out "> ")
+  (read-line))
 
 (defn- dispatch [input]
   "Parse input and if it contains command token execute that command.
@@ -42,7 +43,7 @@
   (let [command (parseCommand input)
         validation (optionalValidate command input)]
     (if (= validation :ok)
-      ((:do command) input) 
+      ((:do command) input)
       (doseq [e (:errors validation)]
         (println e)))))
 
@@ -66,18 +67,18 @@
   "If command (which is interally a Cljoure map) contains key :validate
   return result of invocation of function that is stored under that key against input.
   If there is no :validate key in command return :ok"
- (if (:validate command)
-   ((:validate command) input)
-   :ok))
+  (if (:validate command)
+    ((:validate command) input)
+    :ok))
 
 (defn readTimeline [input]
   "Considers whole trimmed input as a username.
   If username exists, prints it's timeline sorted in desc order"
-  (let [username (.trim input)]    
+  (let [username (.trim input)]
     (println)
     (if (rep/existsUser? username)
       (doseq [post (rep/getTimeline username)]
-          (printf "%s (%s)\n" (:text post) (timeFormat (:timestamp post))))
+        (printf "%s (%s)\n" (:text post) (timeFormat (:timestamp post))))
       (println "Incorrect input."))
     (println)))
 
@@ -102,5 +103,5 @@
   (swap! commands conj command))
 
 (defn trim-split [input delimiter]
-  (map #(.trim %) 
-       (split input (re-pattern delimiter))))
+  (map #(.trim %)
+    (split input (re-pattern delimiter))))

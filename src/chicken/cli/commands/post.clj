@@ -11,7 +11,7 @@
   (let
     [[name message] (trim-split input TOKEN)]
     (if (or (blank? name) (blank? message))
-      {:errors '("Invalid 'post' format. Type 'Username -> message'")} 
+      {:errors '("Invalid 'post' format. Type 'Username -> message'")}
       :ok)))
 
 (defn post [input]
@@ -20,7 +20,7 @@
   (let
     [[name message] (trim-split input TOKEN)]
     (when-not (rep/existsUser? name)
-          (rep/saveUser (User. name #{})))
+      (rep/saveUser (User. name #{})))
     (rep/savePost (Post. message name (System/currentTimeMillis)))))
 
 (pluginCommand :token TOKEN :do post :validate validate)

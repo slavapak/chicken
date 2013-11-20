@@ -5,12 +5,12 @@
 
 (deftest testValidate
   (are [x y] (= x y)
-       :ok    (validate "Alice follows Bob")
-       :ok    (validate "  Alice    follows    Bob   "))
+    :ok    (validate "Alice follows Bob")
+    :ok    (validate "  Alice    follows    Bob   "))
   (are [x] (:errors x)
-       (validate "AlicefollowsBob")
-       (validate "follows Alice Bob")
-       (validate "Alice Bob follows")))
+    (validate "AlicefollowsBob")
+    (validate "follows Alice Bob")
+    (validate "Alice Bob follows")))
 
 (deftest testFollow
   (def followCount (atom 0))
